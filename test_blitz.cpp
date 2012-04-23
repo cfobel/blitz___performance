@@ -101,6 +101,17 @@ int main(int argc, char** argv) {
     duration_map["blitz struct wrapper"] = delta.tv_sec + delta.tv_nsec * 1e-9;
 
 
+    blitz::Array<DummyStruct, 1> blitz_wrapper((DummyStruct *)blitz_tall_narrow.dataFirst(),
+            blitz::shape(N), blitz::neverDeleteData);
+    clock_gettime(CLOCK_REALTIME, &start);
+    for(int i = 0; i < N; i++) {
+        blitz_wrapper(i) = DummyStruct(i, i, i);
+    }
+    clock_gettime(CLOCK_REALTIME, &end);
+    delta = time_diff(start, end);
+    duration_map["blitz wrapper"] = delta.tv_sec + delta.tv_nsec * 1e-9;
+
+
     BOOST_FOREACH(duration_map_t::value_type &item, duration_map) {
         cout << _f("%s,%.2g") % item.first % item.second << endl;
     }

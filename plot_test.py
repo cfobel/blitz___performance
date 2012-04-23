@@ -24,7 +24,7 @@ Plot runtimes using various storage strategies""",
                            )
     parser.add_argument('-o', '--output_path',
                     dest='output_path', default='blitz_performance.pdf',
-                    type=path, help='PDF output path (default=%(default)s).')
+                    type=path, help='Output path (default=%(default)s).')
     parser.add_argument('-p', '--process_count',
                     dest='process_count', default=None, type=int,
                     help='Number of parallel processes to run (default=%(default)s).')
@@ -33,9 +33,6 @@ Plot runtimes using various storage strategies""",
                     help='Max # of items to test, expressed as an exponent to '\
                             ' raise 2 to the power of (default=%(default)s).')
     args = parser.parse_args()
-
-    if args.output_path.ext != '.pdf':
-        parser.error('Output path must have extension ".pdf"')
 
     return args
 
